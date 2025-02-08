@@ -16,8 +16,14 @@ def sent_detector():
     #  Pass the text to the emotion_detector function and store the response.
     response = emotion_detector(text_to_analyze)
 
-    dom_emotion = response[-1]
-    response.delete[-1]
+    dom_emotion = response.get("dominant_emotion", "Unknown")
+    response.pop("dominant_emotion", None)
     
-    return "For the given statement, the system response is "{response}. The dominant emotion is {dom_emotion}
+    return f"For the given statement, the system response is {response}. The dominant emotion is {dom_emotion}."
 
+@app.route("/")
+def render_index_page():
+    return render_template('index.html')
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
