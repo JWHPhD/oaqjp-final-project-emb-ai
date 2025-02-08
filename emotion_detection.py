@@ -29,14 +29,14 @@ def emotion_detector(text_to_analyse):
     dominant_emotion = None
     highest_score = 0
 
-    #  if emotions_dict:  #  
-    for emotion, score in emotions_dict:
-        if score > highest_score:
-            highest_score = score
-            dominant_emotion = emotion
+    #  Find the dominant emotion.
+    dominant_emotion = max(emotions_dict, key=emotions_dict.get)
+    
+    highest_score = emotions_dict[dominant_emotion]
+
                     
     # Add dominant emotion to the dictionary
     emotions_dict["dominant_emotion"] = dominant_emotion
-
+    
     return emotions_dict
     
