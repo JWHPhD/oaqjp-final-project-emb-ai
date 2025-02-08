@@ -12,41 +12,33 @@ def emotion_detector(text_to_analyse):
     
     #  Create a dictionary with the text to be analysed.
     myobj = { "raw_document": { "text": text_to_analyse } }
+    
+    #  Send a POST request to the API with headers and text.
+    response = requests.post(url, json = myobj, headers = header)  
+    
+    #  Return response text and convert to json format.
+    formatted_response = json.loads(response.text)  
 
-    response = requests.post(url, json = myobj, headers = header)  #  Send a POST request to the API with headers and text.
-    formatted_response = json.loads(response.text)  #  Return response text and convert to json format.
-
-    #  Create dictionary to store extracted emotions.
-    emotions_dict = {}
+    
+    emotions_dict = {}  #  Create dictionary to store extracted emotions.
     
     #  Extract the required set of emotions.
     if "emotionPredictions" in formatted_response:  # Direct dictionary access
         for prediction in formatted_response['emotionPredictions']:
             if "emotion" in prediction:  # Only select when the key is 'emotions'.
-                emotions_dict = prediction["emotion"]  # Store the emotion in the dictionary
+                emotions_dict = prediction["emotion"]  # Store the emotion in the dictionary.
  
-    #  Set initial values.
-    #  dominant_emotion = None
-    #  highest_score = 0
-
-    #  Find the dominant emotion.
-    #  dominant_emotion = max(emotions_dict, key=emotions_dict.get)
     
-    #  highest_score = emotions_dict[dominant_emotion]
-    
-    dominant_emotion = None
+    dominant_emotion = None  #  Set initial values.
     highest_score = 0
+    #  Determining the emotion with the highest score.
     for key, score in emotions_dict.items():
-        if score > highest_score:
-            highest_score = score
-            dominant_emotion = key
+        if score > highest_score:  #  Compare each value to see if it is the highest score.
+            highest_score = score  #  Assign the value of the highest score.
+            dominant_emotion = key  #  Assign the key with the highest score.
 
+    emotions_dict["dominant_emotion"] = dominant_emotion  #  Add dominant emotion to dictionary.              
     
-
-    emotions_dict["dominant_emotion"] = dominant_emotion                
-    
-    # Add dominant emotion to the dictionary
-    #  emotions_dict["dominant_emotion"] = dominant_emotion
-    
+    #  Return dictionary containing final output.
     return emotions_dict
     
