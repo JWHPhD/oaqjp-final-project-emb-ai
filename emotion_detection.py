@@ -26,17 +26,27 @@ def emotion_detector(text_to_analyse):
                 emotions_dict = prediction["emotion"]  # Store the emotion in the dictionary
  
     #  Set initial values.
-    dominant_emotion = None
-    highest_score = 0
+    #  dominant_emotion = None
+    #  highest_score = 0
 
     #  Find the dominant emotion.
-    dominant_emotion = max(emotions_dict, key=emotions_dict.get)
+    #  dominant_emotion = max(emotions_dict, key=emotions_dict.get)
     
-    highest_score = emotions_dict[dominant_emotion]
+    #  highest_score = emotions_dict[dominant_emotion]
+    
+    dominant_emotion = None
+    highest_score = 0
+    for key, score in emotions_dict.items():
+        if score > highest_score:
+            highest_score = score
+            dominant_emotion = key
 
-                    
+    
+
+    emotions_dict["dominant_emotion"] = dominant_emotion                
+    
     # Add dominant emotion to the dictionary
-    emotions_dict["dominant_emotion"] = dominant_emotion
+    #  emotions_dict["dominant_emotion"] = dominant_emotion
     
     return emotions_dict
     
