@@ -20,8 +20,13 @@ def sent_detector():
     dom_emotion = response.get("dominant_emotion", "Unknown")
     response.pop("dominant_emotion",  None)  #  Delete the dominant emotion entry.
     
-    #  Return the output per the customer's request..
-    return f"For the given statement, the system response is {response}. The dominant emotion is {dom_emotion}."
+    #  If the dominant emotion is None display error message.
+    if dom_emotion == None:
+        return "Invalid text! Please try again!"  #  Return error message.
+
+    else:  #  If the dominant emotion is not eqaul to None, diplay results response.
+        #  Return the output per the customer's request..
+        return f"For the given statement, the system response is {response}. The dominant emotion is {dom_emotion}."
 
 @app.route("/")
 def render_index_page():
@@ -29,4 +34,4 @@ def render_index_page():
     return render_template('index.html')
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5001)
