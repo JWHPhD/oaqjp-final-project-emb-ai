@@ -1,8 +1,8 @@
 import requests
 import json
 
-#  Create a function named emotion_detector that takes a string input (text_to_analyze).
-def emotion_detector(text_to_analyze):  
+"""  Create a function named emotion_detector that takes a string input (text_to_analyze)."""
+def emotion_detector(text_to_analyze):
     
     #  URL for accessing the Emotion Predict function.
     url = 'https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict'
